@@ -1,0 +1,5 @@
+chimera.vsearch(vsearch=/work/PATH/vsearch-2.13.6-linux-x86_64/bin/vsearch, fasta=stability.trim.contigs.good.unique.good.filter.precluster.fasta, dereplicate=t, reference=silva.gold.fasta, processors=12)
+remove.seqs(fasta=stability.trim.contigs.good.unique.good.filter.precluster.fasta, accnos=stability.trim.contigs.good.unique.good.filter.precluster.ref.vsearch.accnos)
+remove.seqs(count=stability.trim.contigs.good.unique.good.filter.precluster.count_table, accnos=stability.trim.contigs.good.unique.good.filter.precluster.ref.vsearch.accnos)
+summary.seqs(fasta=stability.trim.contigs.good.unique.good.filter.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.precluster.pick.count_table, processors=8)
+count.groups(count=stability.trim.contigs.good.unique.good.filter.precluster.pick.count_table)

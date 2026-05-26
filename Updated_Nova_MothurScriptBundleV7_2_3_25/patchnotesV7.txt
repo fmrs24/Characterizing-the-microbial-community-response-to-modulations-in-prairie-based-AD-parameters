@@ -1,1 +1,26 @@
-
+Patchnotes V7
+In response to Pronto updating its RHEL to RHEL9 and mothur to version 1.48.0 I have implemented some minor changes to keep the code working, and a few additions
+- updated module call to mothur 1.48.0
+- updated resource constraints to AVX512 (from AVX2) so we don't get stuck in the queue forever, but also don't get on the node that breaks the code
+- removed all references to names and groups files and streamlined to work with count tables (the now preferred filetype of mothur)
+- *** Added max length based QC to the initial screening! Something we probably always should have done, this pulls the length from the 97.5th percentile
+	and sets it as max, which for highly regular miseq data should be appropriate. you will want to edit this for long read data or old pyroseq stuff.
+-removed some extraneous commands at the end (phylotype etc) that had been in as a legacy that we no longer used.
+Patch notes V6
+the newest version of mothur introduced some errors when running the pipeline so this version is a temporary fix calling for the older version of the mothur module.
+V7 will hopefully address the problem directly and allow for use of the most up to date mothur version
+Patch notes V5
+Updated to silva release 138
+added SBATCH --constraint=AVX2 to avoid errors to do with certain servers (biocrunch and maybe others) not handling new versions of mothur correctly.
+Patch notes V4:
+Further bundled the master scripts under a single slurm queing script, now to use the pipeline you open that file & edit the variables, and it will queue the whole thing for you.
+The advantage to doing it this way instead of simply bundling all 3 into one script to submit is that here you get more intermediate email notifications. The other advantage is that I wanted to see if I could
+Patch notes V3:
+Added additional summary.seqs, now a summary is printed for each step that processes/removes sequences.
+Capped most (all?) commands that take processors as an input variable at 8 to avoid cpu scheduling problems with slurm
+Created Vsearch chimera check using branch available as separate script bundle. I will try to keep the branches patched to produce as close to the same output as possible.
+Patch notes V2:
+Changed way that start and end variables are defined from the summary logs.
+ The start variable is now based on the 97.5% start, and the end on the 2.5% end, due to the way these variables are used by mothur.
+ This will not effect relatively uniform datasets like the one in our SOP, but can prevent losses of huge amounts of data in mixed or varied data sets.
+ Please check screen.seqs start & end on the wiki for more info.
